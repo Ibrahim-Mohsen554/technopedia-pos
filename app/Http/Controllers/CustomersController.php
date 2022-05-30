@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
+use App\Models\Customers;
 use Illuminate\Http\Request;
 
-class CustomersController extends Controller 
+class CustomersController extends Controller
 {
 
   /**
@@ -14,7 +15,9 @@ class CustomersController extends Controller
    */
   public function index()
   {
-    
+      $customers = Customers::all()->sortDesc();
+      return view('customers.customers' ,compact('customers'));
+
   }
 
   /**
@@ -24,7 +27,8 @@ class CustomersController extends Controller
    */
   public function create()
   {
-    
+      return view('customers.create_customer');
+
   }
 
   /**
@@ -34,7 +38,7 @@ class CustomersController extends Controller
    */
   public function store(Request $request)
   {
-    
+
   }
 
   /**
@@ -45,7 +49,7 @@ class CustomersController extends Controller
    */
   public function show($id)
   {
-    
+
   }
 
   /**
@@ -56,7 +60,7 @@ class CustomersController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -67,7 +71,7 @@ class CustomersController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -78,9 +82,9 @@ class CustomersController extends Controller
    */
   public function destroy($id)
   {
-    
+
   }
-  
+
 }
 
 ?>

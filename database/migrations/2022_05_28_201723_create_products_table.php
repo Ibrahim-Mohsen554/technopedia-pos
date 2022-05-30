@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateProductsTable extends Migration {
 
@@ -17,6 +18,7 @@ class CreateProductsTable extends Migration {
 			$table->integer('Qty_instock');
 			$table->decimal('buy_price');
 			$table->decimal('sell_price');
+            $table->string('created_by');
 			$table->timestamps();
 		});
 	}

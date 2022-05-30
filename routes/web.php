@@ -1,10 +1,12 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\clients\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +30,11 @@ Route::get('/dashboard', function () {
 Route::prefix('/dashboard')->group(function () {
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductsController');
+    Route::get('category/{id}', 'ProductsController@getbrands');
     Route::resource('brands', 'BrandController');
     Route::resource('customers', 'CustomersController');
+    Route::resource('customers/orders', 'clients/OrderController');
+
 });
 
 Route::get('dashboard/{page}', 'AdminController@index');

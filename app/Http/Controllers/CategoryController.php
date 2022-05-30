@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -118,4 +119,6 @@ class CategoryController extends Controller
 
         return redirect('dashboard/categories');
     }
+
+
 }

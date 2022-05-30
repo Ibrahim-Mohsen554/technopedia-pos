@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Brand;
+use App\Models\categories;
 use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
@@ -9,6 +11,15 @@ class Products extends Model
 
     protected $table = 'products';
     public $timestamps = true;
-    protected $fillable = array('sku_num', 'product_name', 'product_desc', 'brand_id', 'category_id', 'Qty_instock', 'buy_price', 'sell_price');
+    protected $guarded = [];
+
+    public function category()
+    {
+        return $this->belongsTo(categories::class);
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 
 }
