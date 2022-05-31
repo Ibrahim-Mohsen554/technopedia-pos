@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Customers;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CustomerRequest;
+
 class CustomersController extends Controller
 {
 
@@ -27,7 +30,7 @@ class CustomersController extends Controller
    */
   public function create()
   {
-      return view('customers.create_customer');
+
 
   }
 
@@ -36,8 +39,22 @@ class CustomersController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(CustomerRequest $request)
   {
+      $validated = $request->validated();
+      $validated['created_by']  = (Auth::user()->name);
+      $validated['company_name']  = $request->company_name;
+
+
+
+      Customers::create($validated);
+
+      notify()->success('Customer Created Successfully !');
+      return redirect('dashboard/customers');
+
+    //   return dd($request->all());
+
+
 
   }
 
@@ -69,8 +86,22 @@ class CustomersController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(CustomerRequest $request)
   {
+
+        $id = $request->pro_id;
+        $validated = $request->validated();
+        $validated['created_by']  = (Auth::user()->name);
+       $validated['company_name']  = $request->company_name;
+
+       $customers = Customers::findOrFail($id);
+
+
+       $customers->update($validated);
+           notify()->success('Customer Updated Successfully !');
+      return redirect('dashboard/customers');
+
+
 
   }
 
@@ -80,11 +111,18 @@ class CustomersController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Request $request)
   {
+         $id = $request->pro_id;
+        Customers::find($id)->delete();
+        notify()->success('Customers Deleted Successfully !');
+
+        return redirect('dashboard/customers');
 
   }
 
 }
 
 ?>
+
+

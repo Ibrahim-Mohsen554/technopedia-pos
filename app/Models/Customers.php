@@ -8,6 +8,6 @@ class Customers extends Model
 
     protected $table = 'customers';
     public $timestamps = true;
-    protected $fillable = array('customer_name', 'Customer_email', 'Phone_number', 'company_name', 'customer_address');
+    protected $fillable = array('customer_name', 'customer_phone', 'customer_address', 'customer_email', 'c_type','company_name','created_by');
 
 }
