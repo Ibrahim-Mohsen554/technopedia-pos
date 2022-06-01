@@ -12,7 +12,7 @@ class CreateProductsTable extends Migration {
 			$table->increments('id');
 			$table->string('sku_num');
 			$table->string('product_name', 150);
-			$table->string('product_desc', 150);
+			$table->string('barcode')->unique();
 			$table->integer('brand_id')->unsigned();
 			$table->integer('category_id')->unsigned();
 			$table->integer('Qty_instock');

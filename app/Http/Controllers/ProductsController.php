@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Models\categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProductStore;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
@@ -40,45 +41,16 @@ class ProductsController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(ProductStore $ProductStore)
   {
-    // "sku_number" => "0020"
-    // "product_name" => "مسامير 10"
-    // "brand_name" => "2"
-    // "category_name" => "3"
-    // "qty_stock" => "500"
-    // "buy_price" => "1200"
-    // "Sell_price" => "1800"
-    // "product_description" => "just test"
-
-
-    $request->validate([
-        'product_name' => 'required',
-        'sku_num' => 'required',
-        'buy_price' => 'required',
-        'sell_price' => 'required',
-        'brand_name' => 'required',
-        'category_name' => 'required',
-
-    ]);
-
-
-    Products::create([
+        $validated = $request->validated();
+        $validated['created_by']  = (Auth::user()->name);
 
 
 
-        'sku_num'=>$request->sku_num,
-         'product_name'=>$request->product_name,
-          'product_desc'=>$request->product_description,
-           'brand_id'=>$request->brand_name,
-            'category_id'=>$request->category_name,
-           'Qty_instock'=>$request->qty_stock,
-           'buy_price'=>$request->buy_price,
-           'sell_price'=>$request->sell_price,
-          'created_by' => (Auth::user()->name),
+    $products =  Products::create($validated);
 
 
-    ]);
     notify()->success('Product Added Successfully !');
 
     return redirect('dashboard/products');
@@ -121,13 +93,7 @@ class ProductsController extends Controller
    */
   public function update(Request $request)
   {
-    // "id" => "1"
-    // "sku_num" => "001"
-    // "product_name" => "hap mini v3"
-    // "Qty_instock" => null
-    // "buy_price" => "1200.00"
-    // "sell_price" => "2200.00"
-    // "product_desc" => "up to 100 user"
+
 
      $id = $request->id;
         $this->validate($request, [
@@ -148,7 +114,7 @@ class ProductsController extends Controller
             'Qty_instock' => $request->Qty_instock,
             'buy_price' => $request->buy_price,
             'sell_price' => $request->sell_price,
-            'product_desc' => $request->product_desc,
+            'barcode' => $request->barcode,
 
         ]);
 
